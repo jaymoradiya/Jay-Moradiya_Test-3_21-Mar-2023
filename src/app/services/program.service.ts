@@ -106,16 +106,17 @@ export class ProgramService {
       .pipe(
         map((res) => {
           if (res.success) {
-            this.programs.next(
-              this.programs.getValue().reduce((acc: Program[], crr) => {
+            const updatePrograms = this.programs
+              .getValue()
+              .reduce((acc: Program[], crr) => {
                 if (crr.programID === programId) {
                   crr.isActive = true;
-                  res.programs = [crr];
                 }
                 acc.push(crr);
                 return acc;
-              }, [])
-            );
+              }, []);
+            this.programs.next(updatePrograms);
+            res.programs = updatePrograms;
             this.error.next(null);
           } else {
             this.handleError(res);
@@ -136,16 +137,17 @@ export class ProgramService {
       .pipe(
         map((res) => {
           if (res.success) {
-            this.programs.next(
-              this.programs.getValue().reduce((acc: Program[], crr) => {
+            const updatePrograms = this.programs
+              .getValue()
+              .reduce((acc: Program[], crr) => {
                 if (crr.programID === programId) {
                   crr.isActive = false;
-                  res.programs = [crr];
                 }
                 acc.push(crr);
                 return acc;
-              }, [])
-            );
+              }, []);
+            this.programs.next(updatePrograms);
+            res.programs = updatePrograms;
             this.error.next(null);
           } else {
             this.handleError(res);

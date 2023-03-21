@@ -15,7 +15,7 @@
       [(ngModel)]="program.isVirtual"></ejs-checkbox>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button ejs-button type="submit" style="margin-right: 24px;">Submit</button>
+    <button ejs-button type="submit" style="margin-right: 16px;">{{isEditMode ? "Update" : "Create"}}</button>
     <button ejs-button type="button" (click)="onCancel()" style="margin-right: 12px;">Cancel</button>
   </mat-dialog-actions>
 </form>

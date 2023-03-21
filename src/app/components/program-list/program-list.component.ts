@@ -3,10 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Program } from 'src/app/models/program.model';
 import { ProgramService } from 'src/app/services/program.service';
 import { CreateEditProgramComponent } from '../create-edit-program/create-edit-program.component';
-import { GridComponent, printGridInit } from '@syncfusion/ej2-angular-grids';
+import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import { ApiResponse } from 'src/app/models/api-response.model';
 import { Observable } from 'rxjs';
-
 @Component({
   selector: 'app-program-list',
   templateUrl: './program-list.component.html',
@@ -14,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class ProgramListComponent implements OnInit {
   programs: Program[] = [];
-  isImmutable = true;
+  isImmutable = false;
   @ViewChild('grid') grid: GridComponent | null = null;
 
   constructor(
@@ -48,18 +47,16 @@ export class ProgramListComponent implements OnInit {
       );
     }
     programObservable.subscribe((res) => {
-      // var index = this.grid!.selectedRowIndex;
-      // this.grid!.updateRow(index, res.programs[0]);
-      // console.log(res.programs[0]);
+      this.isImmutable = false;
+      this.programs = res.programs;
     });
   }
 
   onEdit(program: Program) {
+    this.isImmutable = true;
     this.dialog.open(CreateEditProgramComponent, {
       width: '400px',
       data: program,
     });
   }
-
-  actionComplete(data: any) {}
 }
