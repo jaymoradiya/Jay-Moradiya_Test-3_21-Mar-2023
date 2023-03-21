@@ -1,0 +1,21 @@
+<form #form="ngForm" (ngSubmit)="onSave()">
+
+
+  <h3 mat-dialog-title>{{isEditMode ? "Update Program" : "Create Program"}}</h3>
+  <mat-dialog-content>
+    <ejs-textbox placeholder="Program Name*" name="programName" floatLabelType="Auto"
+      [(ngModel)]="program.programName"></ejs-textbox>
+    <ejs-textbox placeholder="Program Number*" name="programNumber" floatLabelType="Auto"
+      [(ngModel)]="program.programNumber"></ejs-textbox>
+    <ejs-textbox placeholder="Program Budget*" name="programBudget" floatLabelType="Auto"
+      [(ngModel)]="program.programBudget"></ejs-textbox>
+    <ejs-textbox placeholder="Program Description*" name="programDescription" floatLabelType="Auto"
+      [(ngModel)]="program.programDescription"></ejs-textbox>
+    <ejs-checkbox label="Virtual Program" cssClass="e-small" name="isVirtual"
+      [(ngModel)]="program.isVirtual"></ejs-checkbox>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button ejs-button type="submit" style="margin-right: 24px;">Submit</button>
+    <button ejs-button type="button" (click)="onCancel()" style="margin-right: 12px;">Cancel</button>
+  </mat-dialog-actions>
+</form>
