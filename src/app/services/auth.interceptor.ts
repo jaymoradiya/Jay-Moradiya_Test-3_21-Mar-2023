@@ -19,12 +19,12 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     let headers = request.headers.append(
       'Authorization',
-      'Bearer ' + environment.API.TOKEN
+      'Bearer ' + environment.Api.Token
     );
     headers = headers.append('enctype', 'multipart/form-data');
     let newRequest = request.clone({
       headers: headers,
-      url: environment.API.BASE_URL + request.url,
+      url: environment.Api.BaseURL + request.url,
     });
     return next.handle(newRequest);
   }

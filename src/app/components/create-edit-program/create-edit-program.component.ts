@@ -12,7 +12,6 @@ export class CreateEditProgramComponent {
   public targetElement: HTMLElement | null = null;
   @Input()
   isEditMode = false;
-
   @Input()
   program: Program = {
     programID: '',

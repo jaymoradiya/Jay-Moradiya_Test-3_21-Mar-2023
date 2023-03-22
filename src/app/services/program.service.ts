@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, map } from 'rxjs';
 import { ApiResponse } from '../models/api-response.model';
 import { environment } from 'src/environments/environment.development';
@@ -13,30 +9,28 @@ import { Program } from '../models/program.model';
   providedIn: 'root',
 })
 export class ProgramService {
-  API = environment.API;
+  Api = environment.Api;
   programs = new BehaviorSubject<Program[]>([]);
   error = new BehaviorSubject<string | null>(null);
 
   constructor(private http: HttpClient) {}
 
   getAllPrograms(): Observable<ApiResponse<Program[]>> {
-    return this.http
-      .get<ApiResponse<Program[]>>(this.API.GET_ALL_PROGRAMS)
-      .pipe(
-        map((res) => {
-          if (res.success) {
-            this.programs.next(res.programs);
-            this.error.next(null);
-          } else {
-            this.handleError(res);
-          }
-          return res;
-        }),
-        catchError((err: HttpErrorResponse) => {
-          this.handleError(err.error);
-          throw err;
-        })
-      );
+    return this.http.get<ApiResponse<Program[]>>(this.Api.GetAllPrograms).pipe(
+      map((res) => {
+        if (res.success) {
+          this.programs.next(res.programs);
+          this.error.next(null);
+        } else {
+          this.handleError(res);
+        }
+        return res;
+      }),
+      catchError((err: HttpErrorResponse) => {
+        this.handleError(err.error);
+        throw err;
+      })
+    );
   }
 
   createProgram(program: Program): Observable<ApiResponse<Program[]>> {
@@ -45,7 +39,7 @@ export class ProgramService {
       formData.append(key, (program as any)[key])
     );
     return this.http
-      .post<ApiResponse<Program[]>>(this.API.CREATE_PROGRAM, formData)
+      .post<ApiResponse<Program[]>>(this.Api.CreateProgram, formData)
       .pipe(
         map((res) => {
           if (res.success) {
@@ -69,7 +63,7 @@ export class ProgramService {
       formData.append(key, (program as any)[key])
     );
     return this.http
-      .put<ApiResponse<Program[]>>(this.API.EDIT_PROGRAM, formData)
+      .put<ApiResponse<Program[]>>(this.Api.EditProgram, formData)
       .pipe(
         map((res) => {
           if (res.success) {
@@ -100,7 +94,7 @@ export class ProgramService {
     formData.append('programID', programId);
     return this.http
       .put<ApiResponse<Program[]>>(
-        `${this.API.ACTIVATE_DEACTIVATE_PROGRAM}/${programId}/activate`,
+        `${this.Api.ActivateDeactivateProgram}/${programId}/activate`,
         formData
       )
       .pipe(
@@ -132,7 +126,7 @@ export class ProgramService {
   deactivateProgram(programId: string): Observable<ApiResponse<Program[]>> {
     return this.http
       .delete<ApiResponse<Program[]>>(
-        `${this.API.ACTIVATE_DEACTIVATE_PROGRAM}/${programId}`
+        `${this.Api.ActivateDeactivateProgram}/${programId}`
       )
       .pipe(
         map((res) => {
