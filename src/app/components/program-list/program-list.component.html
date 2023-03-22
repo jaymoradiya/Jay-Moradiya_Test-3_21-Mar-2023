@@ -1,17 +1,15 @@
-<!-- [editSettings]="{ allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Dialog' }" -->
-<!-- [toolbar]="['Add', 'Edit', 'Delete', 'Update', 'Cancel']" (actionComplete)="actionComplete($event)" -->
-<ejs-grid #grid enableAdaptiveUI='true' [dataSource]="programs" [enableImmutableMode]='isImmutable' height='100%'>
+<ejs-grid #grid [dataSource]="programs" [enableImmutableMode]="isImmutable" height='100%'>
   <e-columns>
     <e-column field='programName' headerText='Name' textAlign='left' width=120></e-column>
     <e-column field='programNumber' headerText='Program Number' isPrimaryKey="true" textAlign='left'
       width=120></e-column>
     <e-column field='programBudget' headerText='Program Budget' textAlign='left' width=120></e-column>
     <e-column field='programDescription' headerText='Description' textAlign='left' width=120></e-column>
-    <e-column headerText='Action' textAlign='Right' textAlign='left' width=200>
+    <e-column field='isActive' headerText='Action' textAlign='Right' textAlign='left' width=200>
       <ng-template #template let-data>
-        <button ejs-button class="edit btn" (click)="onEdit(data)">Edit</button>
-        <button ejs-button class="empData" (click)="onStatusChange(data)"
-          [class]="{ status : true, btn: true, active: !data.isActive}">{{data.isActive ? "Deactivate": "Activate"
+        <button class="edit btn" (click)="onEdit(data)">Edit</button>
+        <button (click)="onStatusChange(data)" class="status btn" [ngClass]="{active: !data.isActive}">{{data.isActive ?
+          "Deactivate": "Activate"
           }}</button>
       </ng-template>
     </e-column>

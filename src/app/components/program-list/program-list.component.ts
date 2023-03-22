@@ -6,6 +6,7 @@ import { CreateEditProgramComponent } from '../create-edit-program/create-edit-p
 import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import { ApiResponse } from 'src/app/models/api-response.model';
 import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-program-list',
   templateUrl: './program-list.component.html',
@@ -46,10 +47,7 @@ export class ProgramListComponent implements OnInit {
         program.programID
       );
     }
-    programObservable.subscribe((res) => {
-      this.isImmutable = false;
-      this.programs = res.programs;
-    });
+    programObservable.subscribe();
   }
 
   onEdit(program: Program) {
